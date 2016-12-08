@@ -22,6 +22,7 @@ class GiftOccasionTypesController < ApplicationController
   def create
     @gift_occasion_type = GiftOccasionType.new
 
+    @gift_occasion_type.occasion = params[:occasion]
 
     save_status = @gift_occasion_type.save
 
@@ -48,6 +49,7 @@ class GiftOccasionTypesController < ApplicationController
   def update
     @gift_occasion_type = GiftOccasionType.find(params[:id])
 
+    @gift_occasion_type.occasion = params[:occasion]
 
     save_status = @gift_occasion_type.save
 

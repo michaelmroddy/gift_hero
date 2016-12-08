@@ -22,7 +22,7 @@
         <td>
           <% if gift_occasion.occasion_type.present? %>
             <a href="/gift_occasion_types/<%= gift_occasion.occasion_type.id %>">
-              <%= gift_occasion.occasion_type.created_at %>
+              <%= gift_occasion.occasion_type.occasion %>
             </a>
           <% end %>
         </td>

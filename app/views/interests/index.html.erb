@@ -9,6 +9,11 @@
       <p class="lead">Narrow results:</p>
 
         <div class="form-group">
+    <%= f.label :interest_cont, "Interest contains" %>
+    <%= f.text_field :interest_cont, :class => "form-control", :placeholder => "Interest contains" %>
+  </div>
+
+<div class="form-group">
           <%= f.label :created_at, "Created at" %>
           <div class="row">
             <div class='col-md-6 mb-1'>
@@ -64,11 +69,13 @@
   <div class="col-md-12">
     <table class="table table-striped table-hover">
       <tr>
+        <th>Interest</th>
         <th>Actions</th>
       </tr>
 
       <% @interests.each do |interest| %>
       <tr>
+        <td><%= interest.interest %></td>
         <td>
           <a href="/interests/<%= interest.id %>" class="btn btn-primary">Show</a>
           <a href="/interests/<%= interest.id %>/edit" class="btn btn-warning">Edit</a>

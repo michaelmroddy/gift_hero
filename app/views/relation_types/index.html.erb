@@ -9,11 +9,13 @@
   <div class="col-md-12">
     <table class="table table-striped table-hover">
       <tr>
+        <th>Relation</th>
         <th>Actions</th>
       </tr>
 
       <% @relation_types.each do |relation_type| %>
       <tr>
+        <td><%= relation_type.relation %></td>
         <td>
           <a href="/relation_types/<%= relation_type.id %>" class="btn btn-primary">Show</a>
           <a href="/relation_types/<%= relation_type.id %>/edit" class="btn btn-warning">Edit</a>

@@ -5,6 +5,9 @@
 <div class="row">
   <div class="col-md-12 mb-2">
     <dl class="dl-horizontal">
+      <dt>Occasion</dt>
+      <dd><%= @gift_occasion_type.occasion %></dd>
+
     </dl>
 
     <div class="btn-group btn-group-justified">
@@ -60,7 +63,7 @@
           Occasion type
         </label>
 
-        <%= select_tag(:occasion_type_id, options_from_collection_for_select(GiftOccasionType.all, :id, :created_at), :class => "form-control") %>
+        <%= select_tag(:occasion_type_id, options_from_collection_for_select(GiftOccasionType.all, :id, :occasion), :class => "form-control") %>
       </div>
 
       <!-- Label and input for date -->

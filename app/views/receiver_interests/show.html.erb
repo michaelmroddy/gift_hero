@@ -9,7 +9,7 @@
       <dd>
         <% if @receiver_interest.interest.present? %>
           <a href="/interests/<%= @receiver_interest.interest_id %>">
-            <%= @receiver_interest.interest.created_at %>
+            <%= @receiver_interest.interest.interest %>
           </a>
         <% end %>
       </dd>

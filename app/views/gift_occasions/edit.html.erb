@@ -24,7 +24,7 @@
           Occasion type
         </label>
 
-        <%= select_tag(:occasion_type_id, options_from_collection_for_select(GiftOccasionType.all, :id, :created_at, @gift_occasion.occasion_type_id), :class => "form-control") %>
+        <%= select_tag(:occasion_type_id, options_from_collection_for_select(GiftOccasionType.all, :id, :occasion, @gift_occasion.occasion_type_id), :class => "form-control") %>
       </div>
 
       <!-- Label and input for date -->

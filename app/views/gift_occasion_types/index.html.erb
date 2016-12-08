@@ -9,11 +9,13 @@
   <div class="col-md-12">
     <table class="table table-striped table-hover">
       <tr>
+        <th>Occasion</th>
         <th>Actions</th>
       </tr>
 
       <% @gift_occasion_types.each do |gift_occasion_type| %>
       <tr>
+        <td><%= gift_occasion_type.occasion %></td>
         <td>
           <a href="/gift_occasion_types/<%= gift_occasion_type.id %>" class="btn btn-primary">Show</a>
           <a href="/gift_occasion_types/<%= gift_occasion_type.id %>/edit" class="btn btn-warning">Edit</a>
