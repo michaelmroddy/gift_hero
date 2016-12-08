@@ -1,0 +1,58 @@
+<div class="page-header">
+  <h1>
+    Gift receivers
+    <a href="/gift_receivers/new" class="btn btn-lg btn-success">New Gift receiver</a>
+  </h1>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-striped table-hover">
+      <tr>
+        <th>Name</th>
+        <th>Relation</th>
+        <th>User</th>
+        <th>Male</th>
+        <th>Age</th>
+        <th>Address</th>
+        <th>Birthday</th>
+        <th>Anniversary</th>
+        <th>Actions</th>
+      </tr>
+
+      <% @gift_receivers.each do |gift_receiver| %>
+      <tr>
+        <td><%= gift_receiver.name %></td>
+        <td>
+          <% if gift_receiver.relation.present? %>
+            <a href="/relation_types/<%= gift_receiver.relation.id %>">
+              <%= gift_receiver.relation.created_at %>
+            </a>
+          <% end %>
+        </td>
+        <td>
+          <% if gift_receiver.user.present? %>
+            <a href="/users/<%= gift_receiver.user.id %>">
+              <%= gift_receiver.user.email %>
+            </a>
+          <% end %>
+        </td>
+        <td><%= gift_receiver.male %></td>
+        <td><%= gift_receiver.age %></td>
+        <td><%= gift_receiver.address %></td>
+        <td><%= gift_receiver.birthday %></td>
+        <td><%= gift_receiver.anniversary %></td>
+        <td>
+          <a href="/gift_receivers/<%= gift_receiver.id %>" class="btn btn-primary">Show</a>
+          
+          <% if current_user == gift_receiver.user %>
+            <a href="/gift_receivers/<%= gift_receiver.id %>/edit" class="btn btn-warning">Edit</a>
+            <a href="/delete_gift_receiver/<%= gift_receiver.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+    <%= paginate @gift_receivers, theme: 'twitter-bootstrap-4' %>
+  </div>
+</div>

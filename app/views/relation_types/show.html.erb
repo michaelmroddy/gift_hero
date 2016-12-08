@@ -1,0 +1,129 @@
+<div class="page-header">
+  <h3>Relation Type #<%= @relation_type.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/relation_types" class="btn btn-primary">
+        Back
+      </a>
+      <a href="/relation_types/<%= @relation_type.id %>/edit" class="btn btn-warning">
+        Edit
+      </a>
+      <a href="/delete_relation_type/<%= @relation_type.id %>" class="btn btn-danger" rel="nofollow">
+        Delete
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- A Relation type has many gift_receivers -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Gift_receivers
+      </li>
+
+      <% @relation_type.gift_receivers.each do |gift_receiver| %>
+        <li class="list-group-item">
+          <a href="/gift_receivers/<%= gift_receiver.id %>">
+            <%= gift_receiver.name %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/gift_receivers/<%= gift_receiver.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/gift_receivers/<%= gift_receiver.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_gift_receiver/<%= gift_receiver.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+
+      <li class="list-group-item">
+        <form action="/create_gift_receiver" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for name -->
+      <div class="form-group">
+        <label for="name" class="control-label">
+          Name
+        </label>
+
+        <input type="text" id="name" name="name" placeholder="Name" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for relation_id -->
+      <div class="form-group">
+        <label for="relation_id" class="control-label">
+          Relation
+        </label>
+
+        <%= select_tag(:relation_id, options_from_collection_for_select(RelationType.all, :id, :created_at), :class => "form-control") %>
+      </div>
+
+      <!-- Label and input for user_id -->
+      <input type="hidden" name="user_id" value="<%= current_user.id %>">
+
+      <!-- Label and input for male -->
+      <div class="checkbox">
+        <label for="male">
+          <input type="checkbox" id="male" name="male" value="1" <%= "checked" if @gift_receiver.male %>>
+          Male
+        </label>
+      </div>
+
+      <!-- Label and input for age -->
+      <div class="form-group">
+        <label for="age" class="control-label">
+          Age
+        </label>
+
+        <input type="text" id="age" name="age" placeholder="Age" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for address -->
+      <div class="form-group">
+        <label for="address" class="control-label">
+          Address
+        </label>
+
+        <input type="text" id="address" name="address" placeholder="Address" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for birthday -->
+      <div class="form-group">
+        <label for="birthday" class="control-label">
+          Birthday
+        </label>
+
+        <input type="text" id="birthday" name="birthday" placeholder="Birthday" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for anniversary -->
+      <div class="form-group">
+        <label for="anniversary" class="control-label">
+          Anniversary
+        </label>
+
+        <input type="text" id="anniversary" name="anniversary" placeholder="Anniversary" class="form-control" value="">
+      </div>
+
+      <button class="btn btn-block btn-success">
+        Create Gift Receiver
+      </button>
+    </form>
+      </li>
+    </ul>
+  </div>
+</div>

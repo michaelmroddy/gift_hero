@@ -1,0 +1,168 @@
+<div class="page-header">
+  <h3>Gift Occasion #<%= @gift_occasion.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+      <dt>Occasion type</dt>
+      <dd>
+        <% if @gift_occasion.occasion_type.present? %>
+          <a href="/gift_occasion_types/<%= @gift_occasion.occasion_type_id %>">
+            <%= @gift_occasion.occasion_type.created_at %>
+          </a>
+        <% end %>
+      </dd>
+
+      <dt>Date</dt>
+      <dd><%= @gift_occasion.date %></dd>
+
+      <dt>User</dt>
+      <dd>
+        <% if @gift_occasion.user.present? %>
+          <a href="/users/<%= @gift_occasion.user_id %>">
+            <%= @gift_occasion.user.email %>
+          </a>
+        <% end %>
+      </dd>
+
+      <dt>Receiver</dt>
+      <dd>
+        <% if @gift_occasion.receiver.present? %>
+          <a href="/gift_receivers/<%= @gift_occasion.receiver_id %>">
+            <%= @gift_occasion.receiver.name %>
+          </a>
+        <% end %>
+      </dd>
+
+      <dt>Budget</dt>
+      <dd><%= @gift_occasion.budget %></dd>
+
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/gift_occasions" class="btn btn-primary">
+        Back
+      </a>
+      <a href="/gift_occasions/<%= @gift_occasion.id %>/edit" class="btn btn-warning">
+        Edit
+      </a>
+      <a href="/delete_gift_occasion/<%= @gift_occasion.id %>" class="btn btn-danger" rel="nofollow">
+        Delete
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- A Gift occasion has many gift_recommendations -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Gift_recommendations
+      </li>
+
+      <% @gift_occasion.gift_recommendations.each do |gift_recommendation| %>
+        <li class="list-group-item">
+          <a href="/gift_recommendations/<%= gift_recommendation.id %>">
+            <%= gift_recommendation.gift %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/gift_recommendations/<%= gift_recommendation.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/gift_recommendations/<%= gift_recommendation.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_gift_recommendation/<%= gift_recommendation.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+
+      <li class="list-group-item">
+        <form action="/create_gift_recommendation" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for gift -->
+      <div class="form-group">
+        <label for="gift" class="control-label">
+          Gift
+        </label>
+
+        <input type="text" id="gift" name="gift" placeholder="Gift" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for cost -->
+      <div class="form-group">
+        <label for="cost" class="control-label">
+          Cost
+        </label>
+
+        <input type="text" id="cost" name="cost" placeholder="Cost" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for url -->
+      <div class="form-group">
+        <label for="url" class="control-label">
+          Url
+        </label>
+
+        <input type="text" id="url" name="url" placeholder="Url" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for occasion_id -->
+      <div class="form-group">
+        <label for="occasion_id" class="control-label">
+          Occasion
+        </label>
+
+        <%= select_tag(:occasion_id, options_from_collection_for_select(GiftOccasion.all, :id, :occasion_type_id), :class => "form-control") %>
+      </div>
+
+      <!-- Label and input for selected -->
+      <div class="checkbox">
+        <label for="selected">
+          <input type="checkbox" id="selected" name="selected" value="1" <%= "checked" if @gift_recommendation.selected %>>
+          Selected
+        </label>
+      </div>
+
+      <!-- Label and input for rating -->
+      <div class="form-group">
+        <label for="rating" class="control-label">
+          Rating
+        </label>
+
+        <input type="text" id="rating" name="rating" placeholder="Rating" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for recommender_id -->
+      <div class="form-group">
+        <label for="recommender_id" class="control-label">
+          Recommender
+        </label>
+
+        <%= select_tag(:recommender_id, options_from_collection_for_select(Recommender.all, :id, :created_at), :class => "form-control") %>
+      </div>
+
+      <!-- Label and input for description -->
+      <div class="form-group">
+        <label for="description" class="control-label">
+          Description
+        </label>
+
+        <input type="text" id="description" name="description" placeholder="Description" class="form-control" value="">
+      </div>
+
+      <button class="btn btn-block btn-success">
+        Create Gift Recommendation
+      </button>
+    </form>
+      </li>
+    </ul>
+  </div>
+</div>

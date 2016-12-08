@@ -1,0 +1,207 @@
+<div class="page-header">
+  <h3>Gift Receiver #<%= @gift_receiver.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+      <dt>Name</dt>
+      <dd><%= @gift_receiver.name %></dd>
+
+      <dt>Relation</dt>
+      <dd>
+        <% if @gift_receiver.relation.present? %>
+          <a href="/relation_types/<%= @gift_receiver.relation_id %>">
+            <%= @gift_receiver.relation.created_at %>
+          </a>
+        <% end %>
+      </dd>
+
+      <dt>User</dt>
+      <dd>
+        <% if @gift_receiver.user.present? %>
+          <a href="/users/<%= @gift_receiver.user_id %>">
+            <%= @gift_receiver.user.email %>
+          </a>
+        <% end %>
+      </dd>
+
+      <dt>Male</dt>
+      <dd><%= @gift_receiver.male %></dd>
+
+      <dt>Age</dt>
+      <dd><%= @gift_receiver.age %></dd>
+
+      <dt>Address</dt>
+      <dd><%= @gift_receiver.address %></dd>
+
+      <dt>Birthday</dt>
+      <dd><%= @gift_receiver.birthday %></dd>
+
+      <dt>Anniversary</dt>
+      <dd><%= @gift_receiver.anniversary %></dd>
+
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/gift_receivers" class="btn btn-primary">
+        Back
+      </a>
+      <% if current_user == @gift_receiver.user %>
+        <a href="/gift_receivers/<%= @gift_receiver.id %>/edit" class="btn btn-warning">
+          Edit
+        </a>
+        <a href="/delete_gift_receiver/<%= @gift_receiver.id %>" class="btn btn-danger" rel="nofollow">
+          Delete
+        </a>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- A Gift receiver has many receiver_interests -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Receiver_interests
+      </li>
+
+      <% @gift_receiver.receiver_interests.each do |receiver_interest| %>
+        <li class="list-group-item">
+          <a href="/receiver_interests/<%= receiver_interest.id %>">
+            <%= receiver_interest.interest_id %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/receiver_interests/<%= receiver_interest.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/receiver_interests/<%= receiver_interest.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_receiver_interest/<%= receiver_interest.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+
+      <li class="list-group-item">
+        <form action="/create_receiver_interest" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for interest_id -->
+      <div class="form-group">
+        <label for="interest_id" class="control-label">
+          Interest
+        </label>
+
+        <%= select_tag(:interest_id, options_from_collection_for_select(Interest.all, :id, :created_at), :class => "form-control") %>
+      </div>
+
+      <!-- Label and input for receiver_id -->
+      <div class="form-group">
+        <label for="receiver_id" class="control-label">
+          Receiver
+        </label>
+
+        <%= select_tag(:receiver_id, options_from_collection_for_select(GiftReceiver.all, :id, :name), :class => "form-control") %>
+      </div>
+
+      <button class="btn btn-block btn-success">
+        Create Receiver Interest
+      </button>
+    </form>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- A Gift receiver has many gift_occasions -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Gift_occasions
+      </li>
+
+      <% @gift_receiver.gift_occasions.each do |gift_occasion| %>
+        <li class="list-group-item">
+          <a href="/gift_occasions/<%= gift_occasion.id %>">
+            <%= gift_occasion.occasion_type_id %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/gift_occasions/<%= gift_occasion.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/gift_occasions/<%= gift_occasion.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_gift_occasion/<%= gift_occasion.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+
+      <li class="list-group-item">
+        <form action="/create_gift_occasion" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for occasion_type_id -->
+      <div class="form-group">
+        <label for="occasion_type_id" class="control-label">
+          Occasion type
+        </label>
+
+        <%= select_tag(:occasion_type_id, options_from_collection_for_select(GiftOccasionType.all, :id, :created_at), :class => "form-control") %>
+      </div>
+
+      <!-- Label and input for date -->
+      <div class="form-group">
+        <label for="date" class="control-label">
+          Date
+        </label>
+
+        <input type="text" id="date" name="date" placeholder="Date" class="form-control" value="">
+      </div>
+
+      <!-- Label and input for user_id -->
+      <div class="form-group">
+        <label for="user_id" class="control-label">
+          User
+        </label>
+
+        <%= select_tag(:user_id, options_from_collection_for_select(User.all, :id, :email), :class => "form-control") %>
+      </div>
+
+      <!-- Label and input for receiver_id -->
+      <div class="form-group">
+        <label for="receiver_id" class="control-label">
+          Receiver
+        </label>
+
+        <%= select_tag(:receiver_id, options_from_collection_for_select(GiftReceiver.all, :id, :name), :class => "form-control") %>
+      </div>
+
+      <!-- Label and input for budget -->
+      <div class="form-group">
+        <label for="budget" class="control-label">
+          Budget
+        </label>
+
+        <input type="text" id="budget" name="budget" placeholder="Budget" class="form-control" value="">
+      </div>
+
+      <button class="btn btn-block btn-success">
+        Create Gift Occasion
+      </button>
+    </form>
+      </li>
+    </ul>
+  </div>
+</div>

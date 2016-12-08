@@ -1,0 +1,43 @@
+<div class="page-header">
+  <h1>
+    Receiver interests
+    <a href="/receiver_interests/new" class="btn btn-lg btn-success">New Receiver interest</a>
+  </h1>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-striped table-hover">
+      <tr>
+        <th>Interest</th>
+        <th>Receiver</th>
+        <th>Actions</th>
+      </tr>
+
+      <% @receiver_interests.each do |receiver_interest| %>
+      <tr>
+        <td>
+          <% if receiver_interest.interest.present? %>
+            <a href="/interests/<%= receiver_interest.interest.id %>">
+              <%= receiver_interest.interest.created_at %>
+            </a>
+          <% end %>
+        </td>
+        <td>
+          <% if receiver_interest.receiver.present? %>
+            <a href="/gift_receivers/<%= receiver_interest.receiver.id %>">
+              <%= receiver_interest.receiver.name %>
+            </a>
+          <% end %>
+        </td>
+        <td>
+          <a href="/receiver_interests/<%= receiver_interest.id %>" class="btn btn-primary">Show</a>
+          <a href="/receiver_interests/<%= receiver_interest.id %>/edit" class="btn btn-warning">Edit</a>
+          <a href="/delete_receiver_interest/<%= receiver_interest.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+    <%= paginate @receiver_interests, theme: 'twitter-bootstrap-4' %>
+  </div>
+</div>

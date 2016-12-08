@@ -1,0 +1,55 @@
+<div class="page-header">
+  <h1>
+    Gift recommendations
+    <a href="/gift_recommendations/new" class="btn btn-lg btn-success">New Gift recommendation</a>
+  </h1>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-striped table-hover">
+      <tr>
+        <th>Gift</th>
+        <th>Cost</th>
+        <th>Url</th>
+        <th>Occasion</th>
+        <th>Selected</th>
+        <th>Rating</th>
+        <th>Recommender</th>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+
+      <% @gift_recommendations.each do |gift_recommendation| %>
+      <tr>
+        <td><%= gift_recommendation.gift %></td>
+        <td><%= gift_recommendation.cost %></td>
+        <td><%= gift_recommendation.url %></td>
+        <td>
+          <% if gift_recommendation.occasion.present? %>
+            <a href="/gift_occasions/<%= gift_recommendation.occasion.id %>">
+              <%= gift_recommendation.occasion.occasion_type_id %>
+            </a>
+          <% end %>
+        </td>
+        <td><%= gift_recommendation.selected %></td>
+        <td><%= gift_recommendation.rating %></td>
+        <td>
+          <% if gift_recommendation.recommender.present? %>
+            <a href="/recommenders/<%= gift_recommendation.recommender.id %>">
+              <%= gift_recommendation.recommender.created_at %>
+            </a>
+          <% end %>
+        </td>
+        <td><%= gift_recommendation.description %></td>
+        <td>
+          <a href="/gift_recommendations/<%= gift_recommendation.id %>" class="btn btn-primary">Show</a>
+          <a href="/gift_recommendations/<%= gift_recommendation.id %>/edit" class="btn btn-warning">Edit</a>
+          <a href="/delete_gift_recommendation/<%= gift_recommendation.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+    <%= paginate @gift_recommendations, theme: 'twitter-bootstrap-4' %>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<div class="page-header">
+  <h3>Recommender #<%= @recommender.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+      <dt>Email</dt>
+      <dd><%= @recommender.email %></dd>
+
+      <dt>Password</dt>
+      <dd><%= @recommender.password %></dd>
+
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/recommenders" class="btn btn-primary">
+        Back
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- A Recommender has many gift_recommendations -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Gift_recommendations
+      </li>
+
+      <% @recommender.gift_recommendations.each do |gift_recommendation| %>
+        <li class="list-group-item">
+          <a href="/gift_recommendations/<%= gift_recommendation.id %>">
+            <%= gift_recommendation.gift %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/gift_recommendations/<%= gift_recommendation.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/gift_recommendations/<%= gift_recommendation.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_gift_recommendation/<%= gift_recommendation.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

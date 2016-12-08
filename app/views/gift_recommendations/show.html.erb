@@ -1,0 +1,118 @@
+<div class="page-header">
+  <h3>Gift Recommendation #<%= @gift_recommendation.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+      <dt>Gift</dt>
+      <dd><%= @gift_recommendation.gift %></dd>
+
+      <dt>Cost</dt>
+      <dd><%= @gift_recommendation.cost %></dd>
+
+      <dt>Url</dt>
+      <dd><%= @gift_recommendation.url %></dd>
+
+      <dt>Occasion</dt>
+      <dd>
+        <% if @gift_recommendation.occasion.present? %>
+          <a href="/gift_occasions/<%= @gift_recommendation.occasion_id %>">
+            <%= @gift_recommendation.occasion.occasion_type_id %>
+          </a>
+        <% end %>
+      </dd>
+
+      <dt>Selected</dt>
+      <dd><%= @gift_recommendation.selected %></dd>
+
+      <dt>Rating</dt>
+      <dd><%= @gift_recommendation.rating %></dd>
+
+      <dt>Recommender</dt>
+      <dd>
+        <% if @gift_recommendation.recommender.present? %>
+          <a href="/recommenders/<%= @gift_recommendation.recommender_id %>">
+            <%= @gift_recommendation.recommender.created_at %>
+          </a>
+        <% end %>
+      </dd>
+
+      <dt>Description</dt>
+      <dd><%= @gift_recommendation.description %></dd>
+
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/gift_recommendations" class="btn btn-primary">
+        Back
+      </a>
+      <a href="/gift_recommendations/<%= @gift_recommendation.id %>/edit" class="btn btn-warning">
+        Edit
+      </a>
+      <a href="/delete_gift_recommendation/<%= @gift_recommendation.id %>" class="btn btn-danger" rel="nofollow">
+        Delete
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- A Gift recommendation has many review_comments -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Review_comments
+      </li>
+
+      <% @gift_recommendation.review_comments.each do |review_comment| %>
+        <li class="list-group-item">
+          <a href="/review_comments/<%= review_comment.id %>">
+            <%= review_comment.recommendation_id %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/review_comments/<%= review_comment.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/review_comments/<%= review_comment.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_review_comment/<%= review_comment.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+
+      <li class="list-group-item">
+        <form action="/create_review_comment" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for recommendation_id -->
+      <div class="form-group">
+        <label for="recommendation_id" class="control-label">
+          Recommendation
+        </label>
+
+        <%= select_tag(:recommendation_id, options_from_collection_for_select(GiftRecommendation.all, :id, :gift), :class => "form-control") %>
+      </div>
+
+      <!-- Label and input for comment -->
+      <div class="form-group">
+        <label for="comment" class="control-label">
+          Comment
+        </label>
+
+        <input type="text" id="comment" name="comment" placeholder="Comment" class="form-control" value="">
+      </div>
+
+      <button class="btn btn-block btn-success">
+        Create Review Comment
+      </button>
+    </form>
+      </li>
+    </ul>
+  </div>
+</div>

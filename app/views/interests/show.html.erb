@@ -1,0 +1,76 @@
+<div class="page-header">
+  <h3>Interest #<%= @interest.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/interests" class="btn btn-primary">
+        Back
+      </a>
+      <a href="/interests/<%= @interest.id %>/edit" class="btn btn-warning">
+        Edit
+      </a>
+      <a href="/delete_interest/<%= @interest.id %>" class="btn btn-danger" rel="nofollow">
+        Delete
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- A Interest has many receiver_interests -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Receiver_interests
+      </li>
+
+      <% @interest.receiver_interests.each do |receiver_interest| %>
+        <li class="list-group-item">
+          <a href="/receiver_interests/<%= receiver_interest.id %>">
+            <%= receiver_interest.interest_id %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/receiver_interests/<%= receiver_interest.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <a href="/receiver_interests/<%= receiver_interest.id %>/edit" class="btn btn-warning">
+              <i class="fa fa-edit"></i>
+            </a>
+            <a href="/delete_receiver_interest/<%= receiver_interest.id %>" class="btn btn-danger" rel="nofollow">
+              <i class="fa fa-trash-o"></i>
+            </a>
+          </div>
+        </li>
+      <% end %>
+
+      <li class="list-group-item">
+        <form action="/create_receiver_interest" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for interest_id -->
+      <input type="hidden" name="interest_id" value="<%= @interest.id %>">
+
+      <!-- Label and input for receiver_id -->
+      <div class="form-group">
+        <label for="receiver_id" class="control-label">
+          Receiver
+        </label>
+
+        <%= select_tag(:receiver_id, options_from_collection_for_select(GiftReceiver.all, :id, :name), :class => "form-control") %>
+      </div>
+
+      <button class="btn btn-block btn-success">
+        Create Receiver Interest
+      </button>
+    </form>
+      </li>
+    </ul>
+  </div>
+</div>

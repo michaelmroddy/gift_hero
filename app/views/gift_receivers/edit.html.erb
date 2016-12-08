@@ -1,0 +1,93 @@
+<!-- Validation failure messages -->
+<% if @gift_receiver.errors.any? %>
+  <% @gift_receiver.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="page-header">
+  <h3>Edit Gift Receiver #<%= @gift_receiver.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form action="/update_gift_receiver/<%= @gift_receiver.id %>" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for name -->
+      <div class="form-group">
+        <label for="name" class="control-label">
+          Name
+        </label>
+
+        <input type="text" id="name" name="name" placeholder="Name" class="form-control" value="<%= @gift_receiver.name %>">
+      </div>
+
+      <!-- Label and input for relation_id -->
+      <div class="form-group">
+        <label for="relation_id" class="control-label">
+          Relation
+        </label>
+
+        <%= select_tag(:relation_id, options_from_collection_for_select(RelationType.all, :id, :created_at, @gift_receiver.relation_id), :class => "form-control") %>
+      </div>
+
+      
+      
+
+      <!-- Label and input for male -->
+      <div class="checkbox">
+        <label for="male">
+          <input type="checkbox" id="male" name="male" value="1" <%= "checked" if @gift_receiver.male %>>
+          Male
+        </label>
+      </div>
+
+      <!-- Label and input for age -->
+      <div class="form-group">
+        <label for="age" class="control-label">
+          Age
+        </label>
+
+        <input type="text" id="age" name="age" placeholder="Age" class="form-control" value="<%= @gift_receiver.age %>">
+      </div>
+
+      <!-- Label and input for address -->
+      <div class="form-group">
+        <label for="address" class="control-label">
+          Address
+        </label>
+
+        <input type="text" id="address" name="address" placeholder="Address" class="form-control" value="<%= @gift_receiver.address %>">
+      </div>
+
+      <!-- Label and input for birthday -->
+      <div class="form-group">
+        <label for="birthday" class="control-label">
+          Birthday
+        </label>
+
+        <input type="text" id="birthday" name="birthday" placeholder="Birthday" class="form-control" value="<%= @gift_receiver.birthday %>">
+      </div>
+
+      <!-- Label and input for anniversary -->
+      <div class="form-group">
+        <label for="anniversary" class="control-label">
+          Anniversary
+        </label>
+
+        <input type="text" id="anniversary" name="anniversary" placeholder="Anniversary" class="form-control" value="<%= @gift_receiver.anniversary %>">
+      </div>
+
+      <button class="btn btn-warning">
+        Update Gift Receiver
+      </button>
+      or
+      <a href="/gift_receivers/<%= @gift_receiver.id %>">Cancel</a>
+    </form>
+  </div>
+</div>

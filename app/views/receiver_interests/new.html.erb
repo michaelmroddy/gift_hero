@@ -1,0 +1,46 @@
+<!-- Validation failure messages -->
+<% if @receiver_interest.errors.any? %>
+  <% @receiver_interest.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="page-header">
+  <h3>Add Receiver Interest</h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form action="/create_receiver_interest" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for interest_id -->
+      <div class="form-group">
+        <label for="interest_id" class="control-label">
+          Interest
+        </label>
+
+        <%= select_tag(:interest_id, options_from_collection_for_select(Interest.all, :id, :created_at, @receiver_interest.interest_id), :class => "form-control") %>
+      </div>
+
+      <!-- Label and input for receiver_id -->
+      <div class="form-group">
+        <label for="receiver_id" class="control-label">
+          Receiver
+        </label>
+
+        <%= select_tag(:receiver_id, options_from_collection_for_select(GiftReceiver.all, :id, :name, @receiver_interest.receiver_id), :class => "form-control") %>
+      </div>
+
+      <button class="btn btn-success">
+        Create Receiver Interest
+      </button>
+      or
+      <a href="/receiver_interests">Cancel</a>
+    </form>
+  </div>
+</div>

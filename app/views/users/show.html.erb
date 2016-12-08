@@ -1,0 +1,88 @@
+<div class="page-header">
+  <h3>User #<%= @user.id %></h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mb-2">
+    <dl class="dl-horizontal">
+      <dt>Email</dt>
+      <dd><%= @user.email %></dd>
+
+      <dt>Password</dt>
+      <dd><%= @user.password %></dd>
+
+    </dl>
+
+    <div class="btn-group btn-group-justified">
+      <a href="/users" class="btn btn-primary">
+        Back
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- A User has many gift_receivers -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Gift_receivers
+      </li>
+
+      <% @user.gift_receivers.each do |gift_receiver| %>
+        <li class="list-group-item">
+          <a href="/gift_receivers/<%= gift_receiver.id %>">
+            <%= gift_receiver.name %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/gift_receivers/<%= gift_receiver.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <%if current_user == gift_receiver.user %>
+              <a href="/gift_receivers/<%= gift_receiver.id %>/edit" class="btn btn-warning">
+                <i class="fa fa-edit"></i>
+              </a>
+              <a href="/delete_gift_receiver/<%= gift_receiver.id %>" class="btn btn-danger" rel="nofollow">
+                <i class="fa fa-trash-o"></i>
+              </a>
+            <% end %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<!-- A User has many gift_occasions -->
+
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info">
+        Gift_occasions
+      </li>
+
+      <% @user.gift_occasions.each do |gift_occasion| %>
+        <li class="list-group-item">
+          <a href="/gift_occasions/<%= gift_occasion.id %>">
+            <%= gift_occasion.occasion_type_id %>
+          </a>
+          <div class="btn-group btn-group-xs pull-right">
+            <a href="/gift_occasions/<%= gift_occasion.id %>" class="btn btn-primary">
+              <i class="fa fa-search-plus"></i>
+            </a>
+            <%if current_user == gift_occasion.user %>
+              <a href="/gift_occasions/<%= gift_occasion.id %>/edit" class="btn btn-warning">
+                <i class="fa fa-edit"></i>
+              </a>
+              <a href="/delete_gift_occasion/<%= gift_occasion.id %>" class="btn btn-danger" rel="nofollow">
+                <i class="fa fa-trash-o"></i>
+              </a>
+            <% end %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
