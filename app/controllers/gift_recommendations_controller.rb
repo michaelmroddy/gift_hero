@@ -1,5 +1,5 @@
 class GiftRecommendationsController < ApplicationController
-  before_action :current_user_must_be_gift_recommendation_user, :only => [:edit, :update, :destroy]
+#  before_action :current_user_must_be_gift_recommendation_user, :only => [:edit, :update, :destroy]
 
   def current_user_must_be_gift_recommendation_user
     gift_recommendation = GiftRecommendation.find(params[:id])
@@ -12,7 +12,7 @@ class GiftRecommendationsController < ApplicationController
   def index
     @q = GiftRecommendation.ransack(params[:q])
     @gift_recommendations = @q.result(:distinct => true).includes(:recommender, :occasion, :review_comments).page(params[:page]).per(10)
-
+    @my_gift_recommendations = GiftRecommendation.where({ :recommender_id => current_user.id})
     render("gift_recommendations/index.html.erb")
   end
 
@@ -102,4 +102,23 @@ class GiftRecommendationsController < ApplicationController
       redirect_back(:fallback_location => "/", :notice => "Gift recommendation deleted.")
     end
   end
+  def approve
+    @gift_recommendation = GiftRecommendation.find(params[:id])
+    @gift_recommendation.selected=true
+    @gift_recommendation.rejected=false
+    save_status = @gift_recommendation.save
+
+        redirect_back(:fallback_location => "/", :notice => "Gift recommendation updated successfully.")
+
+  end
+  def reject
+    @gift_recommendation = GiftRecommendation.find(params[:id])
+    @gift_recommendation.selected=false
+    @gift_recommendation.rejected=true
+    save_status = @gift_recommendation.save
+
+        redirect_back(:fallback_location => "/", :notice => "Gift recommendation updated successfully.")
+
+  end
+
 end

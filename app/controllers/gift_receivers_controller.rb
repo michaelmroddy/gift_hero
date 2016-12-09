@@ -12,7 +12,7 @@ class GiftReceiversController < ApplicationController
   def index
     @q = GiftReceiver.ransack(params[:q])
     @gift_receivers = @q.result(:distinct => true).includes(:user, :receiver_interests, :gift_occasions, :relation).page(params[:page]).per(10)
-
+    @my_gift_receivers = GiftReceiver.where({ :user_id => current_user.id})
     render("gift_receivers/index.html.erb")
   end
 

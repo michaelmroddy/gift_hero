@@ -71,7 +71,7 @@
           Birthday
         </label>
 
-        <input type="text" id="birthday" name="birthday" placeholder="Birthday" class="form-control" value="<%= @gift_receiver.birthday %>">
+        <input type="date" id="birthday" name="birthday" placeholder="Birthday"  value="<%= @gift_receiver.birthday %>">
       </div>
 
       <!-- Label and input for anniversary -->
@@ -80,7 +80,7 @@
           Anniversary
         </label>
 
-        <input type="text" id="anniversary" name="anniversary" placeholder="Anniversary" class="form-control" value="<%= @gift_receiver.anniversary %>">
+        <input type="date" id="anniversary" name="anniversary" placeholder="Anniversary" value="<%= @gift_receiver.anniversary %>">
       </div>
 
       <button class="btn btn-success">

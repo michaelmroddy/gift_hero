@@ -11,16 +11,13 @@
       <tr>
         <th>Name</th>
         <th>Relation</th>
-        <th>User</th>
-        <th>Male</th>
+        <th>Gender</th>
         <th>Age</th>
         <th>Address</th>
-        <th>Birthday</th>
-        <th>Anniversary</th>
         <th>Actions</th>
       </tr>
 
-      <% @gift_receivers.each do |gift_receiver| %>
+      <% @my_gift_receivers.each do |gift_receiver| %>
       <tr>
         <td><%= gift_receiver.name %></td>
         <td>
@@ -31,20 +28,16 @@
           <% end %>
         </td>
         <td>
-          <% if gift_receiver.user.present? %>
-            <a href="/users/<%= gift_receiver.user.id %>">
-              <%= gift_receiver.user.email %>
-            </a>
-          <% end %>
+          <% if gift_receiver.male %>Male
+            <%else %>Female
+            <%end %>
+
         </td>
-        <td><%= gift_receiver.male %></td>
         <td><%= gift_receiver.age %></td>
         <td><%= gift_receiver.address %></td>
-        <td><%= gift_receiver.birthday %></td>
-        <td><%= gift_receiver.anniversary %></td>
         <td>
-          <a href="/gift_receivers/<%= gift_receiver.id %>" class="btn btn-primary">Show</a>
-          
+          <a href="/gift_receivers/<%= gift_receiver.id %>" class="btn btn-primary">Create Event</a>
+
           <% if current_user == gift_receiver.user %>
             <a href="/gift_receivers/<%= gift_receiver.id %>/edit" class="btn btn-warning">Edit</a>
             <a href="/delete_gift_receiver/<%= gift_receiver.id %>" class="btn btn-danger" rel="nofollow">Delete</a>

@@ -26,7 +26,7 @@
 
         <%= select_tag(:occasion_type_id, options_from_collection_for_select(GiftOccasionType.all, :id, :occasion, @gift_occasion.occasion_type_id), :class => "form-control") %>
       </div>
-
+        <input type="hidden" name="user_id" value="<%= current_user.id %>">
       <!-- Label and input for date -->
       <div class="form-group">
         <label for="date" class="control-label">
@@ -35,9 +35,9 @@
 
         <input type="text" id="date" name="date" placeholder="Date" class="form-control" value="<%= @gift_occasion.date %>">
       </div>
+        <input type="text" id="date" name="date" placeholder="Date" class="form-control" value="<%= @gift_occasion.date %>">
 
-      
-      
+
 
       <!-- Label and input for receiver_id -->
       <div class="form-group">

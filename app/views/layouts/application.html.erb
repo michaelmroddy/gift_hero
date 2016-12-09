@@ -41,17 +41,23 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li><a href="/roles">Roles</a></li>
-          <li><a href="/review_comments">Review Comments</a></li>
+
+<!--          <li><a href="/review_comments">Review Comments</a></li>
+<li><a href="/roles">Roles</a></li>
           <li><a href="/receiver_interests">Receiver Interests</a></li>
           <li><a href="/interests">Interests</a></li>
           <li><a href="/gift_recommendations">Gift Recommendations</a></li>
-          <li><a href="/gift_occasion_types">Gift Occasion Types</a></li>
-          <li><a href="/gift_occasions">Gift Occasions</a></li>
-          <li><a href="/relation_types">Relation Types</a></li>
-          <li><a href="/gift_receivers">Gift Receivers</a></li>
-          <li><a href="/users">Users</a></li>
-          <li><a href="/rails/info">Sitemap</a></li>
+          <li><a href="/gift_occasion_types">Gift Occasion Types</a></li>-->
+          <% if current_user.present? && current_user.role.role =="User" %>
+          <li><a href="/gift_occasions">Events</a></li>
+          <li><a href="/gift_receivers">Friends & Family</a></li>
+          <% else %>
+          <li><a href="/gift_occasions">Events</a></li>
+          <li><a href="/gift_recommendations">Gift Recommendations</a></li>
+          <%end%>
+<!--          <li><a href="/users">Users</a></li>
+<li><a href="/relation_types">Relation Types</a></li>
+          <li><a href="/rails/info">Sitemap</a></li>-->
         </ul>
 
         <ul class="nav navbar-nav navbar-right">

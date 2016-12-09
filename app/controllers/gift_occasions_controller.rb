@@ -12,15 +12,23 @@ class GiftOccasionsController < ApplicationController
   def index
     @q = GiftOccasion.ransack(params[:q])
     @gift_occasions = @q.result(:distinct => true).includes(:user, :receiver, :gift_recommendations, :occasion_type).page(params[:page]).per(10)
-
+  if current_user.role.role == "User"
+    @my_gift_occasions = GiftOccasion.where({ :user_id => current_user.id})
+  else
+    @my_gift_occasions = @gift_occasions
+  end
     render("gift_occasions/index.html.erb")
   end
 
   def show
     @gift_recommendation = GiftRecommendation.new
     @gift_occasion = GiftOccasion.find(params[:id])
-
-    render("gift_occasions/show.html.erb")
+    if current_user.role.role == "User"
+      render("gift_occasions/show.html.erb")
+    else
+      @receiver_likes = @gift_occasion.receiver.receiver_interests
+      render("gift_occasions/show_rec.html.erb")
+    end
   end
 
   def new

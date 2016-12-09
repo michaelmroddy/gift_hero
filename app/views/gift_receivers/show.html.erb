@@ -1,5 +1,5 @@
 <div class="page-header">
-  <h3>Gift Receiver #<%= @gift_receiver.id %></h3>
+  <h3>Gift Receiver:<%= @gift_receiver.name %></h3>
 </div>
 
 <div class="row">
@@ -10,36 +10,15 @@
 
       <dt>Relation</dt>
       <dd>
-        <% if @gift_receiver.relation.present? %>
-          <a href="/relation_types/<%= @gift_receiver.relation_id %>">
             <%= @gift_receiver.relation.relation %>
-          </a>
-        <% end %>
-      </dd>
 
-      <dt>User</dt>
-      <dd>
-        <% if @gift_receiver.user.present? %>
-          <a href="/users/<%= @gift_receiver.user_id %>">
-            <%= @gift_receiver.user.email %>
-          </a>
-        <% end %>
       </dd>
-
-      <dt>Male</dt>
-      <dd><%= @gift_receiver.male %></dd>
 
       <dt>Age</dt>
       <dd><%= @gift_receiver.age %></dd>
 
       <dt>Address</dt>
       <dd><%= @gift_receiver.address %></dd>
-
-      <dt>Birthday</dt>
-      <dd><%= @gift_receiver.birthday %></dd>
-
-      <dt>Anniversary</dt>
-      <dd><%= @gift_receiver.anniversary %></dd>
 
     </dl>
 
@@ -71,15 +50,9 @@
       <% @gift_receiver.receiver_interests.each do |receiver_interest| %>
         <li class="list-group-item">
           <a href="/receiver_interests/<%= receiver_interest.id %>">
-            <%= receiver_interest.interest_id %>
+            <%= receiver_interest.interest.interest %>
           </a>
           <div class="btn-group btn-group-xs pull-right">
-            <a href="/receiver_interests/<%= receiver_interest.id %>" class="btn btn-primary">
-              <i class="fa fa-search-plus"></i>
-            </a>
-            <a href="/receiver_interests/<%= receiver_interest.id %>/edit" class="btn btn-warning">
-              <i class="fa fa-edit"></i>
-            </a>
             <a href="/delete_receiver_interest/<%= receiver_interest.id %>" class="btn btn-danger" rel="nofollow">
               <i class="fa fa-trash-o"></i>
             </a>
@@ -104,14 +77,14 @@
       <!-- Label and input for receiver_id -->
       <div class="form-group">
         <label for="receiver_id" class="control-label">
-          Receiver
+
         </label>
 
-        <%= select_tag(:receiver_id, options_from_collection_for_select(GiftReceiver.all, :id, :name), :class => "form-control") %>
+        <input type="hidden" id="receiver_id" name="receiver_id" class="form-control" value= "<%=@gift_receiver.id%>">
       </div>
 
       <button class="btn btn-block btn-success">
-        Create Receiver Interest
+        Add Receiver Interest
       </button>
     </form>
       </li>
@@ -131,7 +104,7 @@
       <% @gift_receiver.gift_occasions.each do |gift_occasion| %>
         <li class="list-group-item">
           <a href="/gift_occasions/<%= gift_occasion.id %>">
-            <%= gift_occasion.occasion_type_id %>
+            <%= gift_occasion.occasion_type.occasion %>
           </a>
           <div class="btn-group btn-group-xs pull-right">
             <a href="/gift_occasions/<%= gift_occasion.id %>" class="btn btn-primary">
@@ -167,20 +140,14 @@
           Date
         </label>
 
-        <input type="text" id="date" name="date" placeholder="Date" class="form-control" value="">
+        <input type="date" id="date" name="date" placeholder="Date" value="">
       </div>
 
       <!-- Label and input for user_id -->
       <input type="hidden" name="user_id" value="<%= current_user.id %>">
 
       <!-- Label and input for receiver_id -->
-      <div class="form-group">
-        <label for="receiver_id" class="control-label">
-          Receiver
-        </label>
-
-        <%= select_tag(:receiver_id, options_from_collection_for_select(GiftReceiver.all, :id, :name), :class => "form-control") %>
-      </div>
+        <input type="hidden" id="receiver_id" name="receiver_id" class="form-control" value= "<%=@gift_receiver.id%>">
 
       <!-- Label and input for budget -->
       <div class="form-group">

@@ -1,7 +1,6 @@
 <div class="page-header">
   <h1>
     Gift recommendations
-    <a href="/gift_recommendations/new" class="btn btn-lg btn-success">New Gift recommendation</a>
   </h1>
 </div>
 
@@ -12,47 +11,27 @@
         <th>Gift</th>
         <th>Cost</th>
         <th>Url</th>
-        <th>Occasion</th>
-        <th>Selected</th>
-        <th>Rating</th>
-        <th>Recommender</th>
+        <th>Status</th>
         <th>Description</th>
-        <th>Actions</th>
       </tr>
 
-      <% @gift_recommendations.each do |gift_recommendation| %>
+      <% @my_gift_recommendations.each do |gift_recommendation| %>
       <tr>
         <td><%= gift_recommendation.gift %></td>
         <td><%= gift_recommendation.cost %></td>
-        <td><%= gift_recommendation.url %></td>
-        <td>
-          <% if gift_recommendation.occasion.present? %>
-            <a href="/gift_occasions/<%= gift_recommendation.occasion.id %>">
-              <%= gift_recommendation.occasion.occasion_type_id %>
-            </a>
-          <% end %>
-        </td>
-        <td><%= gift_recommendation.selected %></td>
-        <td><%= gift_recommendation.rating %></td>
-        <td>
-          <% if gift_recommendation.recommender.present? %>
-            <a href="/users/<%= gift_recommendation.recommender.id %>">
-              <%= gift_recommendation.recommender.email %>
-            </a>
+        <td><a href="<%= gift_recommendation.url %>"> URL</a></td>
+        <td> <% if gift_recommendation.rejected %>
+            Rejected
+            <% elsif gift_recommendation.selected %>
+            Approved
+            <% else %>
+            Pending
           <% end %>
         </td>
         <td><%= gift_recommendation.description %></td>
-        <td>
-          <a href="/gift_recommendations/<%= gift_recommendation.id %>" class="btn btn-primary">Show</a>
-          
-          <% if current_user == gift_recommendation.recommender %>
-            <a href="/gift_recommendations/<%= gift_recommendation.id %>/edit" class="btn btn-warning">Edit</a>
-            <a href="/delete_gift_recommendation/<%= gift_recommendation.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
-          <% end %>
-        </td>
       </tr>
       <% end %>
     </table>
-    <%= paginate @gift_recommendations, theme: 'twitter-bootstrap-4' %>
+
   </div>
 </div>

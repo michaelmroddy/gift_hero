@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  root :to => "gift_receivers#index"
+  root :to => "gift_occasion#index"
   # Routes for the Role resource:
   # CREATE
   get "/roles/new", :controller => "roles", :action => "new"
@@ -161,6 +161,7 @@ Rails.application.routes.draw do
   get "/users", :controller => "users", :action => "index"
   get "/users/:id", :controller => "users", :action => "show"
 
-
+  get "/approve_gift_recommendations/:id", :controller =>"gift_recommendations", :action => "approve"
+  get "/reject_gift_recommendations/:id", :controller =>"gift_recommendations", :action => "reject"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

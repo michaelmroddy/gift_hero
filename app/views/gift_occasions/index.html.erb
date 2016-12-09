@@ -1,7 +1,9 @@
 <div class="page-header">
   <h1>
-    Gift occasions
+    Upcoming Events
+    <% if current_user.role.role == "User" %>
     <a href="/gift_occasions/new" class="btn btn-lg btn-success">New Gift occasion</a>
+    <%end%>
   </h1>
 </div>
 
@@ -9,31 +11,24 @@
   <div class="col-md-12">
     <table class="table table-striped table-hover">
       <tr>
-        <th>Occasion type</th>
+        <th>Event</th>
         <th>Date</th>
-        <th>User</th>
-        <th>Receiver</th>
+        <th>Person</th>
         <th>Budget</th>
+        <th>Spending</th>
         <th>Actions</th>
       </tr>
 
-      <% @gift_occasions.each do |gift_occasion| %>
+      <%   @my_gift_occasions.each do |gift_occasion| %>
       <tr>
         <td>
           <% if gift_occasion.occasion_type.present? %>
-            <a href="/gift_occasion_types/<%= gift_occasion.occasion_type.id %>">
+            <a >
               <%= gift_occasion.occasion_type.occasion %>
             </a>
           <% end %>
         </td>
-        <td><%= gift_occasion.date %></td>
-        <td>
-          <% if gift_occasion.user.present? %>
-            <a href="/users/<%= gift_occasion.user.id %>">
-              <%= gift_occasion.user.email %>
-            </a>
-          <% end %>
-        </td>
+        <td><%= gift_occasion.date.strftime("%m/%d/%Y") %></td>
         <td>
           <% if gift_occasion.receiver.present? %>
             <a href="/gift_receivers/<%= gift_occasion.receiver.id %>">
@@ -43,12 +38,21 @@
         </td>
         <td><%= gift_occasion.budget %></td>
         <td>
-          <a href="/gift_occasions/<%= gift_occasion.id %>" class="btn btn-primary">Show</a>
-          
-          <% if current_user == gift_occasion.user %>
+          <p style="text-align:left;">
+            Amount Spent: <%=gift_occasion.total_cost %>
+            <span style="float:right;">Amount Remaining: <%=(gift_occasion.budget - gift_occasion.total_cost.to_f).round%></span>
+          </p>
+            <br>
+          <meter value="<%=(gift_occasion.total_cost.to_f).round/gift_occasion.budget%>" min="0" max="1" low = ".4" High = ".95"></meter>
+        </td>
+        <td>
+          <% if current_user.role.role == "User" %>
+          <a href="/gift_occasions/<%= gift_occasion.id %>" class="btn btn-primary">See Gifts</a>
             <a href="/gift_occasions/<%= gift_occasion.id %>/edit" class="btn btn-warning">Edit</a>
             <a href="/delete_gift_occasion/<%= gift_occasion.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
-          <% end %>
+            <%else%>
+            <a href="/gift_occasions/<%= gift_occasion.id %>" class="btn btn-primary">Recommend Gifts</a>
+            <%end%>
         </td>
       </tr>
       <% end %>

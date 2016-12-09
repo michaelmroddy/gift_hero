@@ -11,6 +11,8 @@ class GiftRecommendation < ApplicationRecord
   belongs_to :recommender,
              :class_name => "User"
 
+  
+
   # Indirect associations
 
   # Validations
