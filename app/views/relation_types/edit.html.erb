@@ -18,6 +18,15 @@
       <!-- Hidden input for authenticity token to protect from forgery -->
       <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
+      <!-- Label and input for relation -->
+      <div class="form-group">
+        <label for="relation" class="control-label">
+          Relation
+        </label>
+
+        <input type="text" id="relation" name="relation" placeholder="Relation" class="form-control" value="<%= @relation_type.relation %>">
+      </div>
+
       <button class="btn btn-warning">
         Update Relation Type
       </button>

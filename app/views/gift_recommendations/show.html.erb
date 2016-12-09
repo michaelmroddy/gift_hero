@@ -32,8 +32,8 @@
       <dt>Recommender</dt>
       <dd>
         <% if @gift_recommendation.recommender.present? %>
-          <a href="/recommenders/<%= @gift_recommendation.recommender_id %>">
-            <%= @gift_recommendation.recommender.created_at %>
+          <a href="/users/<%= @gift_recommendation.recommender_id %>">
+            <%= @gift_recommendation.recommender.email %>
           </a>
         <% end %>
       </dd>
@@ -47,12 +47,14 @@
       <a href="/gift_recommendations" class="btn btn-primary">
         Back
       </a>
-      <a href="/gift_recommendations/<%= @gift_recommendation.id %>/edit" class="btn btn-warning">
-        Edit
-      </a>
-      <a href="/delete_gift_recommendation/<%= @gift_recommendation.id %>" class="btn btn-danger" rel="nofollow">
-        Delete
-      </a>
+      <% if current_user == @gift_recommendation.recommender %>
+        <a href="/gift_recommendations/<%= @gift_recommendation.id %>/edit" class="btn btn-warning">
+          Edit
+        </a>
+        <a href="/delete_gift_recommendation/<%= @gift_recommendation.id %>" class="btn btn-danger" rel="nofollow">
+          Delete
+        </a>
+      <% end %>
     </div>
   </div>
 </div>

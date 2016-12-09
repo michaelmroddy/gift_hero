@@ -1,7 +1,17 @@
 class GiftRecommendationsController < ApplicationController
+  before_action :current_user_must_be_gift_recommendation_user, :only => [:edit, :update, :destroy]
+
+  def current_user_must_be_gift_recommendation_user
+    gift_recommendation = GiftRecommendation.find(params[:id])
+
+    unless current_user == gift_recommendation.recommender
+      redirect_to :back, :alert => "You are not authorized for that."
+    end
+  end
+
   def index
     @q = GiftRecommendation.ransack(params[:q])
-    @gift_recommendations = @q.result(:distinct => true).includes(:occasion, :review_comments, :recommender).page(params[:page]).per(10)
+    @gift_recommendations = @q.result(:distinct => true).includes(:recommender, :occasion, :review_comments).page(params[:page]).per(10)
 
     render("gift_recommendations/index.html.erb")
   end

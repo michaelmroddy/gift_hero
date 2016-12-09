@@ -19,7 +19,7 @@
         <td>
           <% if receiver_interest.interest.present? %>
             <a href="/interests/<%= receiver_interest.interest.id %>">
-              <%= receiver_interest.interest.created_at %>
+              <%= receiver_interest.interest.interest %>
             </a>
           <% end %>
         </td>

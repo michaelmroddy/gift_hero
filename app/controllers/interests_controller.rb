@@ -22,6 +22,7 @@ class InterestsController < ApplicationController
   def create
     @interest = Interest.new
 
+    @interest.interest = params[:interest]
 
     save_status = @interest.save
 
@@ -48,6 +49,7 @@ class InterestsController < ApplicationController
   def update
     @interest = Interest.find(params[:id])
 
+    @interest.interest = params[:interest]
 
     save_status = @interest.save
 

@@ -9,7 +9,7 @@
       <dd>
         <% if @gift_occasion.occasion_type.present? %>
           <a href="/gift_occasion_types/<%= @gift_occasion.occasion_type_id %>">
-            <%= @gift_occasion.occasion_type.created_at %>
+            <%= @gift_occasion.occasion_type.occasion %>
           </a>
         <% end %>
       </dd>
@@ -44,12 +44,14 @@
       <a href="/gift_occasions" class="btn btn-primary">
         Back
       </a>
-      <a href="/gift_occasions/<%= @gift_occasion.id %>/edit" class="btn btn-warning">
-        Edit
-      </a>
-      <a href="/delete_gift_occasion/<%= @gift_occasion.id %>" class="btn btn-danger" rel="nofollow">
-        Delete
-      </a>
+      <% if current_user == @gift_occasion.user %>
+        <a href="/gift_occasions/<%= @gift_occasion.id %>/edit" class="btn btn-warning">
+          Edit
+        </a>
+        <a href="/delete_gift_occasion/<%= @gift_occasion.id %>" class="btn btn-danger" rel="nofollow">
+          Delete
+        </a>
+      <% end %>
     </div>
   </div>
 </div>
@@ -141,13 +143,7 @@
       </div>
 
       <!-- Label and input for recommender_id -->
-      <div class="form-group">
-        <label for="recommender_id" class="control-label">
-          Recommender
-        </label>
-
-        <%= select_tag(:recommender_id, options_from_collection_for_select(Recommender.all, :id, :created_at), :class => "form-control") %>
-      </div>
+      <input type="hidden" name="recommender_id" value="<%= current_user.id %>">
 
       <!-- Label and input for description -->
       <div class="form-group">

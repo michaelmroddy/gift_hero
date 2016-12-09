@@ -11,6 +11,8 @@
       <tr>
         <th>Email</th>
         <th>Password</th>
+        <th>Role</th>
+        <th>Username</th>
         <th>Actions</th>
       </tr>
 
@@ -18,6 +20,14 @@
       <tr>
         <td><%= user.email %></td>
         <td><%= user.password %></td>
+        <td>
+          <% if user.role.present? %>
+            <a href="/roles/<%= user.role.id %>">
+              <%= user.role.role %>
+            </a>
+          <% end %>
+        </td>
+        <td><%= user.username %></td>
         <td>
           <a href="/users/<%= user.id %>" class="btn btn-primary">Show</a>
         </td>
