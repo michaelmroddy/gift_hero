@@ -1,6 +1,6 @@
-ActiveAdmin.register Recommender do
+ActiveAdmin.register Role do
 
- permit_params :email, :password
+ permit_params :role
 
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters

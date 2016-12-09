@@ -22,7 +22,7 @@
         <td>
           <% if gift_occasion.occasion_type.present? %>
             <a href="/gift_occasion_types/<%= gift_occasion.occasion_type.id %>">
-              <%= gift_occasion.occasion_type.created_at %>
+              <%= gift_occasion.occasion_type.occasion %>
             </a>
           <% end %>
         </td>
@@ -44,8 +44,11 @@
         <td><%= gift_occasion.budget %></td>
         <td>
           <a href="/gift_occasions/<%= gift_occasion.id %>" class="btn btn-primary">Show</a>
-          <a href="/gift_occasions/<%= gift_occasion.id %>/edit" class="btn btn-warning">Edit</a>
-          <a href="/delete_gift_occasion/<%= gift_occasion.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+          
+          <% if current_user == gift_occasion.user %>
+            <a href="/gift_occasions/<%= gift_occasion.id %>/edit" class="btn btn-warning">Edit</a>
+            <a href="/delete_gift_occasion/<%= gift_occasion.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+          <% end %>
         </td>
       </tr>
       <% end %>

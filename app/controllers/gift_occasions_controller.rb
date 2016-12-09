@@ -1,4 +1,14 @@
 class GiftOccasionsController < ApplicationController
+  before_action :current_user_must_be_gift_occasion_user, :only => [:edit, :update, :destroy]
+
+  def current_user_must_be_gift_occasion_user
+    gift_occasion = GiftOccasion.find(params[:id])
+
+    unless current_user == gift_occasion.user
+      redirect_to :back, :alert => "You are not authorized for that."
+    end
+  end
+
   def index
     @q = GiftOccasion.ransack(params[:q])
     @gift_occasions = @q.result(:distinct => true).includes(:user, :receiver, :gift_recommendations, :occasion_type).page(params[:page]).per(10)

@@ -24,7 +24,7 @@
           Occasion type
         </label>
 
-        <%= select_tag(:occasion_type_id, options_from_collection_for_select(GiftOccasionType.all, :id, :created_at, @gift_occasion.occasion_type_id), :class => "form-control") %>
+        <%= select_tag(:occasion_type_id, options_from_collection_for_select(GiftOccasionType.all, :id, :occasion, @gift_occasion.occasion_type_id), :class => "form-control") %>
       </div>
 
       <!-- Label and input for date -->
@@ -37,13 +37,7 @@
       </div>
 
       <!-- Label and input for user_id -->
-      <div class="form-group">
-        <label for="user_id" class="control-label">
-          User
-        </label>
-
-        <%= select_tag(:user_id, options_from_collection_for_select(User.all, :id, :email, @gift_occasion.user_id), :class => "form-control") %>
-      </div>
+      <input type="hidden" name="user_id" value="<%= current_user.id %>">
 
       <!-- Label and input for receiver_id -->
       <div class="form-group">

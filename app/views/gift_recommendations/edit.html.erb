@@ -71,14 +71,8 @@
         <input type="text" id="rating" name="rating" placeholder="Rating" class="form-control" value="<%= @gift_recommendation.rating %>">
       </div>
 
-      <!-- Label and input for recommender_id -->
-      <div class="form-group">
-        <label for="recommender_id" class="control-label">
-          Recommender
-        </label>
-
-        <%= select_tag(:recommender_id, options_from_collection_for_select(Recommender.all, :id, :created_at, @gift_recommendation.recommender_id), :class => "form-control") %>
-      </div>
+      
+      
 
       <!-- Label and input for description -->
       <div class="form-group">

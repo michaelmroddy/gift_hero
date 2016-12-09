@@ -1,14 +1,15 @@
 class GiftRecommendation < ApplicationRecord
   # Direct associations
 
-  belongs_to :recommender
-
   has_many   :review_comments,
              :foreign_key => "recommendation_id",
              :dependent => :destroy
 
   belongs_to :occasion,
              :class_name => "GiftOccasion"
+
+  belongs_to :recommender,
+             :class_name => "User"
 
   # Indirect associations
 

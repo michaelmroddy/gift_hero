@@ -26,7 +26,7 @@
         <td>
           <% if gift_receiver.relation.present? %>
             <a href="/relation_types/<%= gift_receiver.relation.id %>">
-              <%= gift_receiver.relation.created_at %>
+              <%= gift_receiver.relation.relation %>
             </a>
           <% end %>
         </td>

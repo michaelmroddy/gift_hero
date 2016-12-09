@@ -2,6 +2,23 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   root :to => "gift_receivers#index"
+  # Routes for the Role resource:
+  # CREATE
+  get "/roles/new", :controller => "roles", :action => "new"
+  post "/create_role", :controller => "roles", :action => "create"
+
+  # READ
+  get "/roles", :controller => "roles", :action => "index"
+  get "/roles/:id", :controller => "roles", :action => "show"
+
+  # UPDATE
+  get "/roles/:id/edit", :controller => "roles", :action => "edit"
+  post "/update_role/:id", :controller => "roles", :action => "update"
+
+  # DELETE
+  get "/delete_role/:id", :controller => "roles", :action => "destroy"
+  #------------------------------
+
   # Routes for the Review_comment resource:
   # CREATE
   get "/review_comments/new", :controller => "review_comments", :action => "new"
@@ -18,13 +35,6 @@ Rails.application.routes.draw do
   # DELETE
   get "/delete_review_comment/:id", :controller => "review_comments", :action => "destroy"
   #------------------------------
-
-  devise_for :recommenders
-  # Routes for the Recommender resource:
-  # READ
-  get "/recommenders", :controller => "recommenders", :action => "index"
-  get "/recommenders/:id", :controller => "recommenders", :action => "show"
-
 
   # Routes for the Receiver_interest resource:
   # CREATE

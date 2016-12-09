@@ -1,10 +1,16 @@
 class User < ApplicationRecord
   # Direct associations
 
-  has_many   :gift_occasions,
+  belongs_to :role
+
+  has_many   :gift_recommendations,
+             :foreign_key => "recommender_id",
              :dependent => :destroy
 
   has_many   :gift_receivers,
+             :dependent => :destroy
+
+  has_many   :gift_occasions,
              :dependent => :destroy
 
   # Indirect associations

@@ -1,6 +1,6 @@
 <!-- Validation failure messages -->
-<% if @relation_type.errors.any? %>
-  <% @relation_type.errors.full_messages.each do |message| %>
+<% if @role.errors.any? %>
+  <% @role.errors.full_messages.each do |message| %>
     <div class="alert alert-dismissable alert-danger">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
       <%= message %>
@@ -9,29 +9,29 @@
 <% end %>
 
 <div class="page-header">
-  <h3>Add Relation Type</h3>
+  <h3>Edit Role #<%= @role.id %></h3>
 </div>
 
 <div class="row">
   <div class="col-md-12">
-    <form action="/create_relation_type" method="post">
+    <form action="/update_role/<%= @role.id %>" method="post">
       <!-- Hidden input for authenticity token to protect from forgery -->
       <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
-      <!-- Label and input for relation -->
+      <!-- Label and input for role -->
       <div class="form-group">
-        <label for="relation" class="control-label">
-          Relation
+        <label for="role" class="control-label">
+          Role
         </label>
 
-        <input type="text" id="relation" name="relation" placeholder="Relation" class="form-control" value="<%= @relation_type.relation %>">
+        <input type="text" id="role" name="role" placeholder="Role" class="form-control" value="<%= @role.role %>">
       </div>
 
-      <button class="btn btn-success">
-        Create Relation Type
+      <button class="btn btn-warning">
+        Update Role
       </button>
       or
-      <a href="/relation_types">Cancel</a>
+      <a href="/roles/<%= @role.id %>">Cancel</a>
     </form>
   </div>
 </div>

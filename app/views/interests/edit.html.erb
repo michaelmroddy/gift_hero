@@ -18,6 +18,15 @@
       <!-- Hidden input for authenticity token to protect from forgery -->
       <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
+      <!-- Label and input for interest -->
+      <div class="form-group">
+        <label for="interest" class="control-label">
+          Interest
+        </label>
+
+        <input type="text" id="interest" name="interest" placeholder="Interest" class="form-control" value="<%= @interest.interest %>">
+      </div>
+
       <button class="btn btn-warning">
         Update Interest
       </button>

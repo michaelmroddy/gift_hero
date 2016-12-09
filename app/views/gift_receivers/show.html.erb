@@ -12,7 +12,7 @@
       <dd>
         <% if @gift_receiver.relation.present? %>
           <a href="/relation_types/<%= @gift_receiver.relation_id %>">
-            <%= @gift_receiver.relation.created_at %>
+            <%= @gift_receiver.relation.relation %>
           </a>
         <% end %>
       </dd>
@@ -98,7 +98,7 @@
           Interest
         </label>
 
-        <%= select_tag(:interest_id, options_from_collection_for_select(Interest.all, :id, :created_at), :class => "form-control") %>
+        <%= select_tag(:interest_id, options_from_collection_for_select(Interest.all, :id, :interest), :class => "form-control") %>
       </div>
 
       <!-- Label and input for receiver_id -->
@@ -158,7 +158,7 @@
           Occasion type
         </label>
 
-        <%= select_tag(:occasion_type_id, options_from_collection_for_select(GiftOccasionType.all, :id, :created_at), :class => "form-control") %>
+        <%= select_tag(:occasion_type_id, options_from_collection_for_select(GiftOccasionType.all, :id, :occasion), :class => "form-control") %>
       </div>
 
       <!-- Label and input for date -->
@@ -171,13 +171,7 @@
       </div>
 
       <!-- Label and input for user_id -->
-      <div class="form-group">
-        <label for="user_id" class="control-label">
-          User
-        </label>
-
-        <%= select_tag(:user_id, options_from_collection_for_select(User.all, :id, :email), :class => "form-control") %>
-      </div>
+      <input type="hidden" name="user_id" value="<%= current_user.id %>">
 
       <!-- Label and input for receiver_id -->
       <div class="form-group">

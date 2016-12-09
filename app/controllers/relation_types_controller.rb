@@ -22,6 +22,7 @@ class RelationTypesController < ApplicationController
   def create
     @relation_type = RelationType.new
 
+    @relation_type.relation = params[:relation]
 
     save_status = @relation_type.save
 
@@ -48,6 +49,7 @@ class RelationTypesController < ApplicationController
   def update
     @relation_type = RelationType.find(params[:id])
 
+    @relation_type.relation = params[:relation]
 
     save_status = @relation_type.save
 
