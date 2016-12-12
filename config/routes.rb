@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  root :to => "gift_occasion#index"
+  root :to => "gift_occasions#index"
   # Routes for the Role resource:
   # CREATE
   get "/roles/new", :controller => "roles", :action => "new"
